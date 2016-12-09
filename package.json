@@ -1,0 +1,68 @@
+{
+    "name": "tls-actual",
+    "exportedEnvVars": {
+        "tls_enable": {
+            "global": true,
+            "globalCollisionBehavior": "clobber",
+            "val": "enable"
+        },
+        "CAML_LD_LIBRARY_PATH": {
+            "global": true,
+            "resolveAsRelativePath": true,
+            "globalCollisionBehavior": "joinPath",
+            "val": "./_build/ocamlfind/lib/stublibs"
+        },
+        "tls_installed": {
+            "global": true,
+            "globalCollisionBehavior": "clobber",
+            "val": "true"
+        },
+        "tls_version": {
+            "global": true,
+            "globalCollisionBehavior": "clobber",
+            "val": "0.7.1"
+        },
+        "FINDLIB": {
+            "global": true,
+            "resolveAsRelativePath": true,
+            "globalCollisionBehavior": "joinPath",
+            "val": "./_build/ocamlfind/lib"
+        },
+        "version": {
+            "global": true,
+            "globalCollisionBehavior": "clobber",
+            "val": "0.7.1"
+        },
+        "PATH": {
+            "global": true,
+            "resolveAsRelativePath": true,
+            "globalCollisionBehavior": "joinPath",
+            "val": "./_build/ocamlfind/bin"
+        }
+    },
+    "version": "0.7.1",
+    "dependencies": {
+        "@opam-alpha/lwt": "*",
+        "@opam-alpha/cstruct": ">= 1.9.0",
+        "@opam-alpha/sexplib": "*",
+        "@opam-alpha/nocrypto": ">= 0.5.3",
+        "@opam-alpha/x509": ">= 0.5.0",
+        "@opam-alpha/ocamlfind": "*",
+        "@opam-alpha/oasis": "*",
+        "substs": "https://github.com/yunxing/substs.git",
+        "@opam-alpha/ocamlbuild": "*",
+        "@opam-alpha/result": "*",
+        "@opam-alpha/ppx_sexp_conv": "*",
+        "@opam-alpha/ppx_tools": "*",
+        "dependency-env": "https://github.com/npm-ml/dependency-env.git",
+        "nopam": "https://github.com/yunxing/nopam.git",
+        "opam-installer-bin": "https://github.com/yunxing/opam-installer-bin.git",
+        "@opam-alpha/ounit": "*"
+    },
+    "scripts": {
+        "postinstall": "eval $(dependencyEnv) && nopam && ./configure --prefix $opam_prefix --${lwt_enable:-disable}-lwt --${mirage_types_lwt+ipaddr_enable:-disable}-mirage && make && make install && (opam-installer --prefix=$opam_prefix || true)"
+    },
+    "peerDependencies": {
+        "@opam-alpha/ocaml": ">= 4.02.2"
+    }
+}
